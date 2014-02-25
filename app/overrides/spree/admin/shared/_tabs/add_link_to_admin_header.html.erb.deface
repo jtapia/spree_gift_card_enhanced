@@ -1,0 +1,5 @@
+<!-- insert_bottom '[data-hook=admin_tabs]' -->
+
+<% if can? :admin, Spree::Admin::GiftCardController %>
+  <%= tab :gift_cards, :icon => 'icon-file'  %>
+<% end %>

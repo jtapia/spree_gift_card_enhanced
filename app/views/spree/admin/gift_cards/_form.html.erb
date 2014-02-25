@@ -1,0 +1,70 @@
+<div data-hook="admin_gift_card_form_fields" class="row clearfix">
+  <div class="alpha five columns">
+    <%= f.field_container :email do %>
+      <%= f.label :email, Spree.t(:recipient_email) %> <span class="required">*</span><br/>
+      <%= f.text_field :email, :class => "fullwidth" %>
+      <%= f.error_message_on :email %>
+    <% end %>
+  </div>
+  <div class="omega five columns">
+    <%= f.field_container :name do %>
+      <%= f.label :name, Spree.t(:recipient_name) %> <span class="required">*</span><br/>
+      <%= f.text_field :name, :class => "fullwidth" %>
+      <%= f.error_message_on :name %>
+    <% end %>
+  </div>
+
+  <div class="clear"></div>
+
+  <div class="alpha five columns">
+    <%= f.field_container :sender_email do %>
+      <%= f.label :sender_email, Spree.t(:sender_email) %> <span class="required">*</span><br/>
+      <%= f.text_field :sender_email, :class => "fullwidth" %>
+      <%= f.error_message_on :sender_email %>
+    <% end %>
+  </div>
+  <div class="omega five columns">
+    <%= f.field_container :sender_name do %>
+      <%= f.label :sender_name, Spree.t(:sender_name) %> <span class="required">*</span><br/>
+      <%= f.text_field :sender_name, :class => "fullwidth" %>
+      <%= f.error_message_on :sender_name %>
+    <% end %>
+  </div>
+
+  <div class="clear"></div>
+
+  <div class="alpha five columns">
+  <%= f.field_container :delivery_date do %>
+    <%= f.label :delivery_date %>
+    <%= f.text_field :delivery_date, :value => datepicker_field_value(f.object.delivery_date), :class => 'datepicker datepicker-from fullwidth' %>
+  <% end -%>
+  </div>
+
+  <div class="omega five columns">
+    <%= f.field_container :variant_id do %>
+      <%= f.label :variant_id, Spree.t(:value) %> <span class="required">*</span><br/>
+      <%= f.select :variant_id, @gift_card_variants.map { |v| [number_to_currency(v.price), v.id] }, {}, disabled: (f.object.present? && !f.object.new_record?), :class => 'select2' %>
+    <% end %>
+  </div>
+
+  <div class="clear"></div>
+
+  <div class="alpha five columns">
+    <%= f.field_container :admin_generated do %>
+      <%= f.label :admin_generated, Spree.t(:admin_generated) %><br/>
+      <%= f.check_box :admin_generated, :class => "fullwidth" %>
+      <%= f.error_message_on :admin_generated %>
+    <% end %>
+  </div>
+
+  <div class="clear"></div>
+
+  <div class="alpha ten columns">
+    <%= f.field_container :note do %>
+      <%= f.label :note %>
+      <%= f.text_area :note, :class => "fullwidth" %>
+      <%= f.error_message_on :note %>
+    <% end %>
+  </div>
+
+</div>

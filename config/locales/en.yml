@@ -1,0 +1,10 @@
+en:
+  spree:
+    code: Code
+    original_value: Original Value
+    current_value: Current Value
+    recipient_email: Recipient Email
+    recipient_name: Recipient Name
+    sender_email: Sender Email
+    sender_name: Sender Name
+    delivery_date: Delivery Date

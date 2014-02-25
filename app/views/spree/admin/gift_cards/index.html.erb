@@ -1,0 +1,120 @@
+<% content_for :page_title do %>
+  <%= Spree.t(:gift_cards) %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <li>
+    <%= button_link_to Spree.t(:new_gift_card), new_object_url, :icon => 'icon-plus' %>
+  </li>
+<% end %>
+
+<% content_for :table_filter_title do %>
+  <%= Spree.t(:search) %>
+<% end %>
+
+<% content_for :table_filter do %>
+  <div data-hook="admin_gift_cards_index_search">
+    <%= search_form_for [:admin, @search] do |f| %>
+      <div class="field-block alpha four columns">
+        <div class="date-range-filter field">
+          <%= label_tag nil, Spree.t(:delivery_date) %>
+          <div class="date-range-fields">
+            <%= f.text_field :delivery_date_in, :class => 'datepicker datepicker-to', :value => params[:q][:delivery_date_in], :placeholder => Spree.t(:date) %>
+          </div>
+        </div>
+
+        <div class="field">
+          <%= label_tag nil, Spree.t(:gift_card_code) %>
+          <%= f.text_field :code_cont %>
+        </div>
+
+        <div class="field">
+          <%= label_tag nil, Spree.t(:original_value) %>
+          <%= f.text_field :original_value_cont %>
+        </div>
+      </div>
+
+      <div class="four columns">
+        <div class="field">
+          <%= label_tag nil, Spree.t(:recipient_email) %>
+          <%= f.email_field :email_cont %>
+        </div>
+
+        <div class="field">
+          <%= label_tag nil, Spree.t(:recipient_name) %>
+          <%= f.text_field :name_start %>
+        </div>
+
+        <div class="field">
+          <%= label_tag nil, Spree.t('gift_card.order_number') %>
+          <%= f.text_field :transactions_order_number_cont %>
+        </div>
+      </div>
+
+      <div class="omega four columns">
+        <div class="field">
+          <%= label_tag nil, Spree.t(:sender_email) %>
+          <%= f.email_field :sender_email_cont %>
+        </div>
+
+        <div class="field">
+          <%= label_tag nil, Spree.t(:sender_name) %>
+          <%= f.text_field :sender_name_start %>
+        </div>
+
+        <div class="field checkbox">
+          <label>
+            <%= f.check_box :admin_generated_true, {:checked => @show_only_admin_generated}, '1', '0' %>
+            <%= Spree.t(:show_only_admin_generated) %>
+          </label>
+        </div>
+      </div>
+
+      <div class="clearfix"></div>
+
+      <div class="actions filter-actions">
+        <div data-hook="admin_gift_cards_index_search_buttons">
+          <%= button Spree.t(:filter_results), 'icon-search' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<%= paginate @gift_cards %>
+
+<table class="index" data-hook="admin_gift_cards_index_table">
+  <thead data-hook="admin_gift_cards_index_headers">
+    <tr >
+      <th><%= Spree.t(:code) %></th>
+      <th><%= Spree.t(:original_value) %></th>
+      <th><%= Spree.t(:current_value) %></th>
+      <th><%= Spree.t(:recipient_email) %></th>
+      <th><%= Spree.t(:recipient_name) %></th>
+      <th><%= Spree.t(:sender_email) %></th>
+      <th><%= Spree.t(:sender_name) %></th>
+      <th><%= Spree.t(:delivery_date) %></th>
+      <th style="width:150px;"><%= Spree.t(:action) %></th>
+    </tr>
+  </thead>
+  <tbody data-hook="admin_gift_cards_index_rows">
+    <% @gift_cards.each do |card| %>
+      <tr id="<%= spree_dom_id card %>">
+        <td><%= card.code %></td>
+        <td><%= number_to_currency card.original_value %></td>
+        <td><%= number_to_currency card.current_value %></td>
+        <td><%= card.email %></td>
+        <td><%= card.name %></td>
+        <td><%= card.sender_email %></td>
+        <td><%= card.sender_name %></td>
+        <td><%= card.delivery_date.to_date.to_s(:db) %></td>
+        <td class="actions">
+          <%= link_to_edit card %> <br>
+          <%= link_to_delete card %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @gift_cards %>
